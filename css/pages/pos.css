@@ -1,0 +1,123 @@
+/* css/pages/pos.css */
+
+/* --- قسم نقاط البيع --- */
+.pos-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 400px; 
+    gap: 30px; 
+    height: calc(100vh - 90px); 
+}
+
+.items-section { 
+    background: var(--white-color); 
+    border-radius: 12px; 
+    padding: 25px; 
+    overflow-y: auto; 
+    box-shadow: var(--shadow); 
+}
+
+.category-filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    padding-top: 15px;
+}
+
+.invoice-section { 
+    background-color: var(--white-color); 
+    border-radius: 12px; 
+    padding: 25px; 
+    display: flex; 
+    flex-direction: column; 
+    overflow: hidden; 
+    box-shadow: var(--shadow); 
+}
+
+.invoice-items { 
+    flex-grow: 1; 
+    overflow-y: auto; 
+    margin: 0 -10px; 
+    padding: 0 10px; 
+}
+.empty-invoice { 
+    color: var(--text-light); 
+    text-align: center; 
+    margin-top: 40px; 
+    font-size: 1.1rem; 
+}
+.invoice-summary { 
+    margin-top: auto; 
+    padding-top: 20px; 
+    border-top: 2px dashed var(--border-color); 
+    flex-shrink: 0; 
+}
+.summary-row.total { 
+    font-weight: bold; 
+    font-size: 1.8rem; 
+    color: var(--primary-color); 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.invoice-actions {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.main-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.invoice-item { 
+    display: grid; 
+    grid-template-columns: 1fr auto; 
+    grid-template-rows: auto auto; 
+    gap: 4px 15px; 
+    padding: 15px 5px; 
+    border-bottom: 1px solid var(--secondary-color); 
+    align-items: center; 
+}
+.invoice-item .name { 
+    grid-column: 1 / 2; 
+    grid-row: 1 / 2; 
+    font-weight: 700; 
+    font-size: 1.1rem; 
+}
+.invoice-item .price { 
+    grid-column: 1 / 2; 
+    grid-row: 2 / 3; 
+    font-size: 0.9rem; 
+    color: var(--text-light); 
+}
+.invoice-item .quantity-controls { 
+    grid-column: 2 / 3; 
+    grid-row: 1 / 3; 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+}
+.quantity-controls span { 
+    font-size: 1.2rem; 
+    font-weight: 700; 
+}
+
+/* --- Responsive for POS --- */
+@media (max-width: 1200px) { 
+    .pos-grid { 
+        grid-template-columns: 1fr; 
+        height: auto; 
+    } 
+}

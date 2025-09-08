@@ -1,0 +1,121 @@
+/* css/print.css */
+
+@media print {
+    /* --- الإعدادات العامة للطباعة --- */
+    html, body {
+        background: #fff !important;
+        color: #000 !important;
+    }
+    body > *:not(.printable-area) {
+        display: none !important;
+    }
+    .printable-area {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* --- التحكم في مقاسات الصفحات --- */
+    body.printing-receipt {
+        @page { size: 58mm; margin: 2mm; }
+        #printable-receipt { display: block !important; }
+    }
+    body.printing-report {
+        @page { size: A4; margin: 20mm; }
+        #printable-a4-report { display: block !important; }
+    }
+
+    /* --- [جديد] تنسيق الفاتورة الحرارية الاحترافي --- */
+    #printable-receipt {
+        font-family: 'Courier New', monospace;
+        font-size: 10pt;
+        color: #000;
+        box-sizing: border-box;
+        text-align: center;
+        direction: rtl;
+    }
+    
+    .receipt-header h3 {
+        font-size: 14pt;
+        font-weight: bold;
+        margin: 5px 0 10px 0;
+    }
+    
+    .receipt-info {
+        font-size: 9pt;
+        text-align: right;
+        margin-bottom: 10px;
+    }
+    .receipt-info p {
+        margin: 2px 0;
+    }
+    
+    .receipt-separator {
+        border-top: 1px dashed #000;
+        margin: 8px 0;
+    }
+
+    .receipt-items-table {
+        width: 100%;
+    }
+    .receipt-items-header, .receipt-item-row {
+        display: flex;
+        width: 100%;
+        text-align: right;
+    }
+    .receipt-items-header {
+        font-weight: bold;
+    }
+    
+    .item-col {
+        box-sizing: border-box;
+        word-wrap: break-word;
+        padding: 4px 2px;
+    }
+    .name-col {
+        flex: 1; /* يأخذ المساحة المتبقية */
+    }
+    .qty-col {
+        width: 20%;
+        text-align: center;
+    }
+    .price-col {
+        width: 30%;
+        text-align: left;
+    }
+
+    .receipt-total-section {
+        margin-top: 10px;
+    }
+    .receipt-total p {
+        font-weight: bold;
+        font-size: 12pt;
+        text-align: left;
+        margin: 5px 0;
+    }
+    
+    .receipt-footer {
+        margin-top: 20px;
+        font-size: 8pt;
+    }
+    
+    /* --- تنسيقات تقرير A4 (لا تغيير) --- */
+    #printable-a4-report { font-family: 'Tajawal', sans-serif; color: #000; }
+    /* ... (باقي تنسيقات A4 كما هي) ... */
+    .print-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 15px; }
+    .print-header h1 { font-size: 18pt; margin: 0; }
+    .print-header p { margin: 5px 0 0; font-size: 10pt; }
+    .report-main-title { text-align: center; font-size: 22pt; margin-bottom: 10px; }
+    .report-date { text-align: center; font-size: 12pt; margin-bottom: 30px; }
+    .report-table { width: 100%; border-collapse: collapse; font-size: 11pt; }
+    .report-table thead { display: table-header-group; }
+    .report-table tr { page-break-inside: avoid; }
+    .report-table th, .report-table td { border: 1px solid #333; padding: 10px; text-align: right; }
+    .report-table th { background-color: #e0e0e0; font-weight: bold; }
+    .report-table .day-separator td { background-color: #f0f0e0; font-weight: bold; text-align: center; border-top: 2px solid #333; border-bottom: 2px solid #333; }
+    .report-summary { margin-top: 30px; padding-top: 15px; border-top: 2px solid #000; text-align: right; font-weight: bold; font-size: 14pt; }
+}

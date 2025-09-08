@@ -1,0 +1,231 @@
+/* --- النماذج --- */
+.form-container { 
+    background-color: var(--white-color); 
+    padding: 40px; 
+    border-radius: 12px; 
+    max-width: 600px; 
+    margin: 20px auto; 
+    box-shadow: var(--shadow); 
+}
+.form-container > label { 
+    display: block; 
+    margin-bottom: 10px; 
+    font-weight: 700; 
+    font-size: 1.1rem; 
+}
+.form-container > label .required { 
+    color: var(--danger-color); 
+    font-weight: bold; 
+}
+.form-container > input, .form-container > select {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-container input:focus, .form-container select:focus { 
+    border-color: var(--primary-color); 
+    box-shadow: 0 0 0 3px var(--primary-light); 
+    outline: none; 
+}
+.time-selection-wrapper { 
+    border: 1px solid var(--border-color); 
+    border-radius: 8px; 
+    padding: 20px; 
+    margin-bottom: 20px; 
+    background-color: #fafbff; 
+}
+/* [تم التعديل] تطبيق التنسيقات على القوائم المنسدلة داخل الحاوية */
+.time-selection-wrapper select {
+    width: 100%; 
+    padding: 15px; 
+    border-radius: 8px; 
+    border: 1px solid var(--border-color); 
+    font-family: 'Tajawal', sans-serif; 
+    font-size: 1.1rem;
+    margin-bottom: 0;
+}
+.time-selection-wrapper > div label { 
+    display: block; 
+    margin-bottom: 10px; 
+}
+.manual-time-hidden { 
+    display: none; 
+}
+.manual-time-inputs { 
+    display: flex; 
+    align-items: flex-end; 
+    gap: 10px; 
+}
+.time-input-group { 
+    flex: 1; 
+}
+.time-input-group label { 
+    font-size: 0.9rem; 
+    font-weight: 500; 
+    color: var(--text-light); 
+    display: block; 
+    margin-bottom: 5px; 
+}
+.time-input-group input { 
+    width: 100%; 
+    padding: 15px; 
+    border: 1px solid var(--border-color); 
+    border-radius: 8px; 
+    box-sizing: border-box; 
+    font-size: 1.1rem; 
+}
+.manual-time-inputs span { 
+    padding-bottom: 15px; 
+    font-weight: bold; 
+    font-size: 1.2rem; 
+}
+
+.toggle-time-entry { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    margin-top: 15px; 
+    font-size: 1rem; 
+    padding-top: 15px; 
+    border-top: 1px solid var(--border-color); 
+}
+.toggle-time-entry input { 
+    width: auto; 
+    margin-bottom: 0; 
+}
+
+.quick-price-buttons { 
+    display: flex; 
+    gap: 10px; 
+    margin-bottom: 10px; 
+}
+
+/* تنسيقات حقول الإعدادات */
+#cashier-manager label, #quick-price-settings label, .setting-field label { 
+    display: block; 
+    margin-bottom: 8px; 
+    font-weight: 500; 
+}
+#cashier-manager input, #quick-price-settings input, .setting-field input { 
+    width: 100%; 
+    padding: 12px; 
+    border-radius: 8px; 
+    border: 1px solid var(--border-color); 
+    margin-bottom: 15px; 
+    box-sizing: border-box; 
+}
+
+.add-item-form { 
+    display: grid; 
+    gap: 10px; 
+    align-items: center; 
+    grid-template-columns: 1fr 1fr; 
+}
+.add-item-form input, .add-item-form select, .form-field-wrapper input { 
+    margin-bottom: 0; 
+    font-size: 1rem; 
+    padding: 12px; 
+    width: 100%; 
+    box-sizing: border-box; 
+    border: 1px solid var(--border-color); 
+    border-radius: 8px; 
+    font-family: 'Tajawal', sans-serif; 
+}
+/* حاوية حقل المبلغ السريع */
+.form-field-wrapper {
+    grid-column: 1 / -1;
+}
+.add-item-form #new-restaurant-item-name, 
+.add-item-form #new-cafe-item-category, 
+.add-item-form #add-cafe-item,
+#add-section-form > input, #add-section-form > select { 
+    grid-column: 1 / -1; 
+}
+#add-section-form > button {
+    grid-column: 1 / -1;
+}
+
+
+@media (max-width: 480px) {
+    .add-item-form { 
+        grid-template-columns: 1fr; 
+    }
+    .add-item-form > * { 
+        grid-column: 1 / -1 !important; 
+    }
+}
+
+/* نافذة كلمة المرور */
+.password-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+.password-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+.password-prompt-box {
+    background: var(--white-color);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+}
+.password-overlay.hidden .password-prompt-box {
+    transform: scale(0.9);
+}
+.password-prompt-box h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+.password-prompt-box #password-input {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 1.2rem;
+    text-align: center;
+}
+.password-prompt-buttons {
+    display: flex;
+    gap: 10px;
+}
+.password-prompt-buttons button {
+    flex: 1;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border: none;
+}
+.password-prompt-buttons .cancel-btn {
+    background-color: #eee;
+    color: #333;
+}
+.password-prompt-buttons .submit-btn {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}

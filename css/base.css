@@ -1,0 +1,32 @@
+/* --- إعدادات عامة --- */
+:root {
+    --primary-color: #2a6fdb;
+    --primary-light: #eaf1ff;
+    --secondary-color: #f0f5ff;
+    --border-color: #dce4f2;
+    --text-color: #34495e;
+    --text-light: #7f8c8d;
+    --bg-color: #f8f9fa;
+    --white-color: #fff;
+    --danger-color: #e74c3c;
+    --danger-light: #fbeae8;
+    --success-color: #27ae60;
+    --success-light: #e9f7ef;
+    --accent-color: #f39c12;
+
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    direction: rtl;
+    font-size: 16px;
+}
+
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}

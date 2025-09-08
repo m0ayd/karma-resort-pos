@@ -1,0 +1,38 @@
+.item-card {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: var(--white-color);
+}
+.item-card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1); 
+    border-color: var(--primary-color); 
+}
+.item-card .item-name { 
+    font-weight: 700; 
+    font-size: 1.2rem; 
+}
+.item-card .item-price { 
+    color: var(--primary-color); 
+    font-weight: 500; 
+    margin-top: 10px; 
+    font-size: 1.1rem; 
+}
+
+.setting-card { 
+    background: var(--white-color); 
+    padding: 25px; 
+    border-radius: 12px; 
+    border: 1px solid var(--border-color); 
+    box-shadow: var(--shadow); 
+}
+
+.backup-card { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+}

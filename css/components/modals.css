@@ -1,0 +1,121 @@
+/* css/components/modals.css */
+
+/* --- النوافذ المنبثقة (Modal & Password Prompt) --- */
+.modal-overlay,
+.password-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hidden,
+.password-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-box,
+.password-prompt-box {
+    background: var(--white-color);
+    padding: 40px; /* زيادة المساحة الداخلية */
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 420px; /* زيادة العرض قليلاً */
+    text-align: center;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+}
+
+/* [جديد] تأثير الاهتزاز لكلمة المرور الخاطئة */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+.password-prompt-box.shake {
+    animation: shake 0.4s ease-in-out;
+}
+
+
+.modal-overlay.hidden .modal-box,
+.password-overlay.hidden .password-prompt-box {
+    transform: scale(0.9);
+}
+
+.modal-box h3,
+.password-prompt-box h3 {
+    margin-top: 0;
+    font-size: 1.8rem; /* تكبير الخط */
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+#print-confirmation-summary {
+    margin: 20px 0;
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+#print-confirmation-summary span {
+    display: block;
+    margin-bottom: 8px;
+}
+#print-confirmation-summary .total {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.password-prompt-box p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 25px; /* زيادة المسافة */
+}
+
+.password-prompt-box #password-input,
+.password-prompt-box #cashier-password-input { /* تطبيق التنسيق على كلا الحقلين */
+    width: 100%;
+    padding: 16px; /* زيادة المساحة الداخلية للحقل */
+    margin-top: 15px;
+    margin-bottom: 25px; /* زيادة المسافة */
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 1.2rem;
+    text-align: center;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.modal-buttons,
+.password-prompt-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.modal-buttons button,
+.password-prompt-buttons button {
+    flex: 1;
+    padding: 16px; /* تكبير الزر */
+    border-radius: 8px;
+    font-size: 1.2rem; /* تكبير خط الزر */
+    cursor: pointer;
+    border: none;
+    font-weight: 700; /* جعل الخط أعرض */
+}
+
+.cancel-btn {
+    background-color: #eee;
+    color: #333;
+}
+.submit-btn {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}

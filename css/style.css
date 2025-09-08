@@ -1,0 +1,23 @@
+/* --- استيراد الملفات المقسمة بالترتيب الصحيح --- */
+
+/* 1. الأساسيات والمتغيرات */
+@import url('base.css');
+
+/* 2. هيكل وتخطيط الموقع */
+@import url('layout.css');
+
+/* 3. مكونات قابلة لإعادة الاستخدام */
+@import url('components/buttons.css');
+@import url('components/cards.css');
+@import url('components/forms.css');
+@import url('components/tables.css');
+@import url('components/notifications.css');
+@import url('components/modals.css'); /* [جديد] ملف النوافذ المنبثقة */
+
+/* 4. تنسيقات خاصة بالصفحات */
+@import url('pages/pos.css');
+@import url('pages/history.css');
+@import url('pages/settings.css');
+
+/* 5. تنسيقات الطباعة (تأتي في النهاية) */
+@import url('print.css');

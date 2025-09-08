@@ -1,0 +1,37 @@
+{
+  "name": "karma-resort-pos",
+  "version": "1.0.0",
+  "description": "نظام كاشير منتجع كرمه",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "package": "electron-packager . karma-resort-app --platform=win32 --arch=x64 --out=dist --overwrite",
+    "dist": "electron-builder"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^31.7.7",
+    "electron-builder": "^24.13.3",
+    "electron-log": "^5.1.5",
+    "electron-packager": "^17.1.2",
+    "electron-updater": "^6.2.1"
+  },
+  "build": {
+    "appId": "com.karmaresort.pos",
+    "productName": "Karma Resort POS",
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "m0ayd",
+      "repo": "karma-resort-pos"
+    }
+  }
+}

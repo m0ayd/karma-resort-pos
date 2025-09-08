@@ -1,0 +1,34 @@
+.table-container { 
+    background-color: var(--white-color); 
+    padding: 20px; 
+    border-radius: 12px; 
+    overflow-x: auto; 
+    box-shadow: var(--shadow); 
+}
+#invoices-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+}
+#invoices-table th, #invoices-table td { 
+    padding: 18px; 
+    text-align: right; 
+    border-bottom: 1px solid var(--border-color); 
+    white-space: nowrap; 
+}
+#invoices-table th { 
+    font-size: 1.1rem; 
+}
+#invoices-table td.actions-cell {
+    text-align: center;
+    width: 200px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.empty-table-message { 
+    text-align: center; 
+    padding: 40px; 
+    color: var(--text-light); 
+    font-size: 1.1rem; 
+}

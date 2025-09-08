@@ -1,0 +1,109 @@
+/* css/pages/history.css */
+
+/* [تم التعديل] استخدام grid layout لتنظيم أفضل */
+.history-controls { 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    align-items: end;
+    gap: 20px;
+    background-color: var(--white-color); 
+    padding: 20px; 
+    border-radius: 12px; 
+    margin-bottom: 20px; 
+    box-shadow: var(--shadow); 
+}
+
+.search-container { 
+    grid-column: 1 / -1; /* يأخذ عرض كامل في البداية */
+}
+#invoice-search-input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1rem;
+}
+
+/* [جديد] تنسيق مجموعات حقول التاريخ */
+.date-report-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.date-report-group label {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text-light);
+}
+.date-input-wrapper, .date-range-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.date-report-group input[type="date"] {
+    flex-grow: 1;
+    padding: 11px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1rem;
+    min-width: 140px;
+}
+.date-range-wrapper span {
+    color: var(--text-light);
+}
+
+.actions {
+    grid-column: 1 / -1; /* يأخذ عرض كامل */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+    margin-top: 10px;
+}
+
+/* --- Responsive for History --- */
+@media (max-width: 1200px) {
+    .history-controls { 
+        grid-template-columns: 1fr;
+    }
+}
+
+/* [جديد] تنسيقات عناصر التحكم بالترقيم */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: var(--white-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+.pagination-btn {
+    padding: 10px 20px;
+    border: 1px solid var(--border-color);
+    background-color: transparent;
+    color: var(--primary-color);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+.pagination-btn:hover:not(:disabled) {
+    background-color: var(--primary-light);
+}
+.pagination-btn:disabled {
+    cursor: not-allowed;
+    color: var(--text-light);
+    opacity: 0.6;
+}
+#page-info {
+    font-weight: 500;
+    color: var(--text-color);
+}

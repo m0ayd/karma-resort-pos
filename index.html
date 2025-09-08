@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام فواتير منتجع كرمه العائلي</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2a6fdb">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="icons/icon-192x192.png">
+    <style>
+        .hidden-username { display: none; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- القائمة الجانبية -->
+        <aside class="sidebar">
+            <h1 class="logo">منتجع كرمه العائلي</h1>
+            <nav id="main-menu" class="menu">
+                <a href="#" class="menu-item active" data-target="restaurant">🍽️ المطعم</a>
+                <a href="#" class="menu-item" data-target="cafe">☕ كافي منه</a>
+                <a href="#" class="menu-item" data-target="football">⚽ الميادين</a>
+                <a href="#" class="menu-item" data-target="history">🧾 سجل الفواتير</a>
+                <!-- سيتم إدراج الأقسام الجديدة هنا بواسطة JavaScript -->
+                <a href="#" class="menu-item" data-target="settings">⚙️ الإعدادات</a>
+                <a href="#" class="menu-item" data-target="backup">🗄️ النسخ الاحتياطي</a>
+            </nav>
+        </aside>
+
+        <!-- المحتوى الرئيسي -->
+        <main id="main-content-area" class="main-content">
+            <button class="sidebar-toggle">☰</button>
+            <!-- قسم المطعم -->
+            <div id="restaurant" class="page active">
+                 <div class="pos-grid">
+                    <div class="items-section">
+                        <header class="page-header">
+                            <h3>أصناف المطعم</h3>
+                            <p>اختر الأصناف لإضافتها إلى الفاتورة</p>
+                        </header>
+                        <div id="restaurant-items-grid" class="items-grid"></div>
+                    </div>
+                    <div class="invoice-section">
+                        <h3>الفاتورة الحالية</h3>
+                        <div id="restaurant-invoice-items" class="invoice-items"><p class="empty-invoice">لم يتم إضافة أي صنف بعد</p></div>
+                        <div class="invoice-summary">
+                            <div class="summary-row total"><span>المجموع الكلي</span><span id="restaurant-total">0.00 SDG</span></div>
+                        </div>
+                        <div class="invoice-actions">
+                             <div class="main-buttons">
+                                <button data-action="clear" data-section-id="restaurant" class="clear-button">إفراغ</button>
+                                <button data-action="print" data-section-id="restaurant" class="print-button">إصدار وطباعة</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- قسم الكافيه -->
+            <div id="cafe" class="page">
+                 <div class="pos-grid">
+                    <div class="items-section">
+                        <header class="page-header">
+                            <h3>أصناف الكافيه</h3>
+                            <p>اختر الفئة ثم الصنف المطلوب</p>
+                        </header>
+                        <div id="cafe-category-filters" class="category-filters"></div>
+                        <div id="cafe-items-grid" class="items-grid"></div>
+                    </div>
+                    <div class="invoice-section">
+                        <h3>الفاتورة الحالية</h3>
+                        <div id="cafe-invoice-items" class="invoice-items"><p class="empty-invoice">لم يتم إضافة أي صنف بعد</p></div>
+                        <div class="invoice-summary">
+                            <div class="summary-row total"><span>المجموع الكلي</span><span id="cafe-total">0.00 SDG</span></div>
+                        </div>
+                        <div class="invoice-actions">
+                             <div class="main-buttons">
+                                <button data-action="clear" data-section-id="cafe" class="clear-button">إفراغ</button>
+                                <button data-action="print" data-section-id="cafe" class="print-button">إصدار وطباعة</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم الميادين -->
+            <div id="football" class="page">
+                <header class="page-header"><h2>إصدار فاتورة ملعب</h2></header>
+                <div class="form-container">
+                    
+                    <label for="field-name">اختر الملعب:</label>
+                    <select id="field-name" autocomplete="off">
+                        <option value="الميدان القديم">الميدان القديم</option>
+                        <option value="الميدان الجديد">الميدان الجديد</option>
+                    </select>
+                    
+                    <label for="reservation-date">تاريخ الحجز:</label>
+                    <input type="date" id="reservation-date" autocomplete="off" readonly>
+                    
+                    <div class="time-selection-wrapper">
+                        <div id="time-slot-container">
+                            <label for="time-slot">اختر موعد جاهز:</label>
+                            <select id="time-slot" autocomplete="off"></select>
+                        </div>
+                        <div id="manual-time-container" class="manual-time-hidden">
+                            <label>أو أدخل الوقت يدويًا:</label>
+                            <div class="manual-time-inputs">
+                                <div class="time-input-group">
+                                    <label for="start-time">وقت البداية</label>
+                                    <input type="time" id="start-time" aria-label="وقت بداية التمرين" autocomplete="off">
+                                </div>
+                                <span>-</span>
+                                <div class="time-input-group">
+                                    <label for="end-time">وقت النهاية</label>
+                                    <input type="time" id="end-time" aria-label="وقت نهاية التمرين" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="toggle-time-entry">
+                            <input type="checkbox" id="manual-time-toggle"><label for="manual-time-toggle">إدخال وقت مخصص (مثال: ساعة ونصف)</label>
+                        </div>
+                    </div>
+                    
+                    <label for="football-price">المبلغ المستلم: <span class="required">*</span></label>
+                    <div class="quick-price-buttons">
+                        <button class="quick-price-btn" id="quick-price-btn"></button>
+                    </div>
+                    <input type="number" id="football-price" placeholder="أدخل المبلغ الإجمالي للحجز" required autocomplete="off">
+                    
+                    <button id="print-football-invoice" class="print-button">إصدار فاتورة الملعب</button>
+                </div>
+            </div>
+
+            <!-- قسم سجل الفواتير -->
+            <div id="history" class="page">
+                <header class="page-header">
+                    <h2>سجل الفواتير</h2>
+                    <p>هنا يمكنك عرض جميع الفواتير وطباعة تقارير سريعة.</p>
+                </header>
+                <div class="history-controls">
+                    <div class="search-container">
+                        <input type="search" id="invoice-search-input" placeholder="🔎 ابحث برقم الفاتورة..." autocomplete="off">
+                    </div>
+                    <div class="date-report-group">
+                        <label>طباعة تقرير لفترة زمنية محددة:</label>
+                        <div class="date-range-wrapper">
+                            <input type="date" id="report-start-date" autocomplete="off" aria-label="تاريخ بداية الفترة">
+                            <span>إلى</span>
+                            <input type="date" id="report-end-date" autocomplete="off" aria-label="تاريخ نهاية الفترة">
+                            <button id="print-range-report" class="action-btn report-btn">طباعة</button>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button id="print-today-report" class="action-btn report-btn">تقرير اليوم</button>
+                        <button id="print-7days-report" class="action-btn report-btn">آخر 7 أيام</button>
+                        <button id="print-30days-report" class="action-btn report-btn">آخر 30 يوم</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="invoices-table">
+                        <thead><tr><th>رقم الفاتورة</th><th>القسم</th><th>التاريخ والوقت</th><th>الإجمالي</th><th>إجراءات</th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                     <p id="no-invoices-message" class="empty-table-message" style="display: none;">لا توجد فواتير تطابق بحثك.</p>
+                </div>
+                    <div id="pagination-controls" class="pagination-controls">
+                        <button id="prev-page-btn" class="pagination-btn" disabled>السابق</button>
+                        <span id="page-info">صفحة 1 من 1</span>
+                        <button id="next-page-btn" class="pagination-btn" disabled>التالي</button>
+                    </div>
+            </div>
+            
+            <!-- قسم الإعدادات -->
+            <div id="settings" class="page">
+                <header class="page-header">
+                    <h2>الإعدادات العامة للنظام</h2>
+                    <p>من هنا يمكنك التحكم في كل تفاصيل النظام.</p>
+                </header>
+
+                <div class="settings-section">
+                    <h3>إدارة الأقسام</h3>
+                    <p class="section-description">أضف أقساماً جديدة للنظام مثل (مقهى خارجي، خدمات إضافية، إلخ).</p>
+                    <div id="sections-manager" class="setting-card">
+                        <h4>الأقسام المضافة حالياً</h4>
+                        <div id="custom-sections-list" class="items-list">
+                            <p class="empty-list">لم يتم إضافة أي قسم مخصص بعد.</p>
+                        </div>
+                        <h4>إضافة قسم جديد</h4>
+                        <form id="add-section-form" class="add-item-form">
+                            <input type="text" id="new-section-name" placeholder="اسم القسم الجديد (مثال: البلياردو)" maxlength="50" required>
+                            <input type="text" id="new-section-icon" placeholder="الأيقونة (مثال: 🎱)" maxlength="5">
+                            <select id="new-section-template" required>
+                                <option value="" disabled selected>اختر نوع القالب...</option>
+                                <option value="pos">بيع أصناف (مثل المطعم والكافيه)</option>
+                                <option value="booking">حجز بالوقت (مثل الملاعب)</option>
+                                <option value="simple">خدمة بسيطة (اسم خدمة + مبلغ)</option>
+                            </select>
+                            <button type="submit" class="add-btn">إضافة القسم</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>بيانات الكاشير</h3>
+                    <p class="section-description">أدخل اسم ورقم هاتف الكاشير المسؤول لتظهر في الفواتير المطبوعة.</p>
+                    <div id="cashier-manager" class="setting-card">
+                        <label for="cashier-name">اسم الكاشير:</label>
+                        <input type="text" id="cashier-name" placeholder="مثال: محمد أحمد" maxlength="50" autocomplete="name">
+                        <label for="cashier-phone">رقم هاتف الكاشير:</label>
+                        <input type="tel" id="cashier-phone" placeholder="مثال: 0912345678" maxlength="15" autocomplete="tel">
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>زر المبلغ في قسم الملعب</h3>
+                    <p class="section-description">أدخل المبلغ الذي يظهر كزر سريع في صفحة الملاعب.</p>
+                    <div id="quick-price-settings" class="setting-card">
+                        <label for="quick-price-input">المبلغ:</label>
+                        <input type="number" id="quick-price-input" placeholder="مثال: 20000" autocomplete="off">
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>أمان النظام</h3>
+                     <p class="section-description">تغيير كلمة مرور المدير للدخول إلى الإعدادات وحذف الفواتير.</p>
+                    <div class="setting-card">
+                       <p>أدخل كلمة المرور الجديدة (4 أحرف على الأقل)، أو اترك الحقل فارغاً لعدم تغييرها.</p>
+                       <form id="password-change-form">
+                           <input type="text" name="username" value="admin" class="hidden-username" autocomplete="username">
+                           <label for="admin-password">كلمة المرور الجديدة:</label>
+                           <input type="password" id="admin-password" autocomplete="new-password" placeholder="اتركها فارغة لعدم التغيير">
+                           <button id="save-password-btn" type="submit" class="action-btn">حفظ كلمة المرور</button>
+                       </form>
+                    </div>
+                    <div class="setting-card">
+                       <h4>أمان الكاشير (قفل الشاشة)</h4>
+                       <p>قم بتعيين كلمة مرور مختلفة للكاشير لفتح الشاشة، وحدد مدة الخمول قبل قفلها.</p>
+                       <form id="cashier-security-form" onsubmit="return false;" class="settings-form-layout">
+                           <input type="text" name="username" value="cashier_settings_user" class="hidden-username" autocomplete="username">
+                           <div class="form-field">
+                               <label for="screen-lock-timeout">مدة الخمول بالدقائق (0 لتعطيل القفل):</label>
+                               <input type="number" id="screen-lock-timeout" placeholder="مثال: 5 (دقائق)">
+                           </div>
+                           <div class="form-field">
+                               <label for="cashier-password">كلمة مرور الكاشير الجديدة:</label>
+                               <input type="password" id="cashier-password" autocomplete="new-password" placeholder="اتركها فارغة لعدم التغيير">
+                           </div>
+                       </form>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>تحديثات النظام</h3>
+                    <p class="section-description">تحقق من وجود إصدار جديد من البرنامج وقم بتثبيته.</p>
+                    <div id="updater-container" class="setting-card">
+                        <div id="update-info">
+                            <p>اضغط على الزر للتحقق من حالة التحديث.</p>
+                        </div>
+                        <div id="update-progress-container" style="display: none;">
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" id="update-progress-bar"></div>
+                            </div>
+                            <span id="update-progress-text"></span>
+                        </div>
+                        <div id="update-actions">
+                            <button id="check-update-btn" class="action-btn report-btn">التحقق من وجود تحديث</button>
+                            <button id="install-update-btn" class="action-btn export-btn" style="display: none;">تنزيل وتثبيت التحديث</button>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="settings-section">
+                    <h3>إدارة الأصناف</h3>
+                    <p class="section-description">أضف أو احذف أصناف المطعم والكافيه والأقسام الجديدة التي تظهر في شاشة البيع.</p>
+                    <div id="items-management-container" class="items-manager-grid">
+                        <div class="setting-card">
+                            <h4>أصناف المطعم</h4>
+                            <div id="restaurant-items-manager" class="items-list"></div>
+                            <div class="add-item-form">
+                                <input type="text" id="new-restaurant-item-name" placeholder="اسم الصنف الجديد" maxlength="50" autocomplete="off">
+                                <input type="number" id="new-restaurant-item-price" placeholder="سعره" autocomplete="off">
+                                <button class="add-btn" data-section="restaurant">إضافة صنف</button>
+                            </div>
+                        </div>
+                         <div class="setting-card">
+                            <h4>أصناف الكافيه</h4>
+                            <div id="cafe-items-manager" class="items-list"></div>
+                            <div class="add-item-form">
+                                 <select id="new-cafe-item-category" autocomplete="off">
+                                    <option value="coffee">قهوة</option>
+                                    <option value="juice">عصائر</option>
+                                    <option value="tea">شاي ومشروبات ساخنة</option>
+                                 </select>
+                                <input type="text" id="new-cafe-item-name" placeholder="اسم الصنف الجديد" maxlength="50" autocomplete="off">
+                                <input type="number" id="new-cafe-item-price" placeholder="سعره" autocomplete="off">
+                                <button class="add-btn" data-section="cafe">إضافة صنف</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم النسخ الاحتياطي -->
+            <div id="backup" class="page">
+                <header class="page-header">
+                    <h2>النسخ الاحتياطي والاستعادة</h2>
+                    <p>إدارة بيانات النظام بأمان.</p>
+                </header>
+                
+                 <div class="settings-section">
+                    <h3>سجل آخر نسخة احتياطية</h3>
+                    <div id="backup-log-section" class="setting-card">
+                        <p id="last-backup-info">لم يتم أخذ نسخة احتياطية بعد.</p>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>البيانات (منطقة خطرة)</h3>
+                    <div class="setting-card backup-card">
+                        <h4>حفظ واسترجاع البيانات</h4>
+                        <p><strong>مهم جداً:</strong> للحفاظ على بيانات فواتيرك من الضياع، قم بتصدير نسخة احتياطية بشكل دوري واحفظها في مكان آمن.</p>
+                        <button id="export-data" class="action-btn export-btn">تصدير (حفظ) كامل البيانات</button>
+                        <label for="import-file-input" class="action-btn import-btn">استيراد (استرجاع) بيانات</label>
+                        <input type="file" id="import-file-input" accept=".json" style="display: none;">
+                        <hr>
+                        <p><strong>إجراء لا يمكن التراجع عنه:</strong> سيؤدي هذا إلى حذف جميع الفواتير والأصناف والإعدادات بشكل نهائي.</p>
+                        <button id="delete-all-data" class="action-btn delete-btn">حذف كل البيانات نهائياً</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- نافذة تأكيد الطباعة -->
+    <div id="print-confirmation-overlay" class="modal-overlay hidden">
+        <div class="modal-box">
+            <h3>تأكيد إصدار الفاتورة</h3>
+            <div id="print-confirmation-summary"></div>
+            <div class="modal-buttons">
+                <button id="confirm-cancel-btn" class="cancel-btn">إلغاء</button>
+                <button id="confirm-print-btn" class="submit-btn">تأكيد وطباعة</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة كلمة المرور -->
+    <div id="password-prompt-overlay" class="password-overlay hidden">
+        <form class="password-prompt-box">
+            <h3>مطلوب كلمة المرور</h3>
+            <p>الرجاء إدخال كلمة المرور للمتابعة.</p>
+            <input type="text" name="username" value="prompt_user" class="hidden-username" autocomplete="username">
+            <input type="password" id="password-input" autocomplete="new-password" placeholder="كلمة المرور">
+            <div class="password-prompt-buttons">
+                <button id="password-cancel-btn" type="button" class="cancel-btn">إلغاء</button>
+                <button id="password-submit-btn" type="submit" class="submit-btn">تأكيد</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="screen-lock-overlay" class="password-overlay hidden">
+        <form id="screen-lock-form" class="password-prompt-box">
+            <h3>🔒 تم قفل الشاشة</h3>
+            <p>الرجاء إدخال كلمة مرور الكاشير للمتابعة.</p>
+            <input type="text" name="username" value="cashier_user" class="hidden-username" autocomplete="username">
+            <input type="password" id="cashier-password-input" autocomplete="current-password" placeholder="كلمة المرور">
+            <div class="password-prompt-buttons">
+                <button id="screen-lock-submit-btn" type="submit" class="submit-btn">فتح القفل</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- عناصر الطباعة الخفية -->
+    <div id="printable-receipt" class="printable-area"></div>
+    <div id="printable-a4-report" class="printable-area"></div>
+    
+    <div id="toast-notification"></div>
+
+    <script type="module" src="js/main.js"></script>
+    
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service worker registered:', reg.scope))
+                    .catch(err => console.log('Service worker registration failed:', err));
+            });
+        }
+    </script>
+</body>
+</html>```
+

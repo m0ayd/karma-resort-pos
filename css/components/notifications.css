@@ -1,0 +1,35 @@
+/* --- نظام الإشعارات (Toast) --- */
+#toast-notification {
+    visibility: hidden; 
+    min-width: 300px; 
+    margin-left: -150px; 
+    color: #fff; 
+    text-align: center; 
+    border-radius: 12px;
+    padding: 20px; 
+    position: fixed; 
+    z-index: 2000; 
+    left: 50%; 
+    bottom: 40px; 
+    font-size: 1.2rem;
+    font-weight: 500; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+#toast-notification.show { 
+    visibility: visible; 
+    animation: toast-fade-in 0.5s, toast-fade-out 0.5s 2.5s; 
+}
+#toast-notification.success { 
+    background-color: var(--success-color); 
+}
+#toast-notification.error { 
+    background-color: var(--danger-color); 
+}
+@keyframes toast-fade-in { 
+    from { bottom: 0; opacity: 0; } 
+    to { bottom: 40px; opacity: 1; } 
+}
+@keyframes toast-fade-out { 
+    from { bottom: 40px; opacity: 1; } 
+    to { bottom: 0; opacity: 0; } 
+}
